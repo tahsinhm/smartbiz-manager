@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-
+import { API_ENDPOINTS } from '../config'
 function Dashboard() {
 
   const [stats, setStats] = useState({
@@ -21,8 +21,8 @@ function Dashboard() {
       try {
 
         const response = await fetch(
-          'http://localhost:3000/api/dashboard-stats'
-        )
+  API_ENDPOINTS.DASHBOARD_STATS
+)
 
         if (!response.ok) {
           throw new Error(

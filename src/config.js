@@ -1,0 +1,18 @@
+export const API_URL = 'https://smartbiz-manager.onrender.com'
+
+export const API_ENDPOINTS = {
+  CUSTOMERS_LIST: `${API_URL}/api/customers`,
+  CUSTOMERS_CREATE: `${API_URL}/api/customers`,
+  CUSTOMERS_DELETE: (id) => `${API_URL}/api/customers/${id}`,
+
+  EMPLOYEES_LIST: `${API_URL}/api/employees`,
+  EMPLOYEES_CREATE: `${API_URL}/api/employees`,
+  EMPLOYEES_DELETE: (id) => `${API_URL}/api/employees/${id}`,
+
+  ATTENDANCE_LIST: `${API_URL}/api/attendance`,
+  ATTENDANCE_CREATE: `${API_URL}/api/attendance`,
+  ATTENDANCE_DELETE: (id) => `${API_URL}/api/attendance/${id}`,
+
+  DASHBOARD_STATS: `${API_URL}/api/dashboard-stats`,
+  LOGIN: `${API_URL}/api/auth/login`,
+}

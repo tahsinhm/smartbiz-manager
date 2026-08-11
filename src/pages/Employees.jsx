@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-
+import { API_ENDPOINTS } from '../config'
 function Employees() {
 
   const [employees, setEmployees] = useState([])
@@ -29,8 +29,8 @@ function Employees() {
       setLoading(true)
 
       const response = await fetch(
-        'http://localhost:3000/api/employees'
-      )
+  API_ENDPOINTS.EMPLOYEES_LIST
+)
 
       if (!response.ok) {
         throw new Error('Could not load employees')
@@ -72,8 +72,8 @@ function Employees() {
       setError('')
 
       const response = await fetch(
-        'http://localhost:3000/api/employees',
-        {
+  API_ENDPOINTS.EMPLOYEES_CREATE,
+  {
           method: 'POST',
 
           headers: {
@@ -120,8 +120,8 @@ function Employees() {
   const deleteEmployee = async (id) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/employees/${id}`,
-        {
+  API_ENDPOINTS.EMPLOYEES_DELETE(id),
+  {
           method: 'DELETE',
         }
       )

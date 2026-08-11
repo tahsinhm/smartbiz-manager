@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router'
-
+import { API_ENDPOINTS } from '../config'
 function Login() {
   const navigate = useNavigate()
 
@@ -17,8 +17,8 @@ function Login() {
       setError('')
 
       const response = await fetch(
-        'http://localhost:3000/api/auth/login',
-        {
+  API_ENDPOINTS.LOGIN,
+  {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

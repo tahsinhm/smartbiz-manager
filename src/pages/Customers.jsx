@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { API_ENDPOINTS } from '../config'
 
 function Customers() {
 
@@ -29,8 +30,8 @@ function Customers() {
       setLoading(true)
 
       const response = await fetch(
-        'http://localhost:3000/api/customers'
-      )
+  API_ENDPOINTS.CUSTOMERS_LIST
+)
 
       if (!response.ok) {
         throw new Error('Could not load customers')
@@ -78,8 +79,8 @@ function Customers() {
       setError('')
 
       const response = await fetch(
-        'http://localhost:3000/api/customers',
-        {
+  API_ENDPOINTS.CUSTOMERS_CREATE,
+  {
           method: 'POST',
 
           headers: {
@@ -132,8 +133,8 @@ function Customers() {
     try {
 
       const response = await fetch(
-        `http://localhost:3000/api/customers/${id}`,
-        {
+  API_ENDPOINTS.CUSTOMERS_DELETE(id),
+  {
           method: 'DELETE',
         }
       )

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-
+import { API_ENDPOINTS } from '../config'
 function Attendance() {
 
   const [attendance, setAttendance] = useState([])
@@ -28,8 +28,8 @@ function Attendance() {
 
       // Load attendance records
       const attendanceResponse = await fetch(
-        'http://localhost:3000/api/attendance'
-      )
+  API_ENDPOINTS.ATTENDANCE_LIST
+)
 
       if (!attendanceResponse.ok) {
         throw new Error('Could not load attendance')
@@ -41,8 +41,8 @@ function Attendance() {
 
       // Load employees for dropdown
       const employeeResponse = await fetch(
-        'http://localhost:3000/api/employees'
-      )
+  API_ENDPOINTS.EMPLOYEES_LIST
+)
 
       if (!employeeResponse.ok) {
         throw new Error('Could not load employees')
@@ -87,8 +87,8 @@ function Attendance() {
       setError('')
 
       const response = await fetch(
-        'http://localhost:3000/api/attendance',
-        {
+  API_ENDPOINTS.ATTENDANCE_CREATE,
+  {
           method: 'POST',
 
           headers: {
@@ -132,10 +132,10 @@ function Attendance() {
 
   // Delete attendance
   const deleteAttendance = async (id) => {
-    try {
-      const response = await fetch(
-        `http://localhost:3000/api/attendance/${id}`,
-        {
+  try {
+    const response = await fetch(
+      API_ENDPOINTS.ATTENDANCE_DELETE(id),
+      {
           method: 'DELETE',
         }
       )
