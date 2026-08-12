@@ -11,6 +11,7 @@ import Customers from './pages/Customers'
 import Leads from './pages/Leads'
 import Employees from './pages/Employees'
 import Attendance from './pages/Attendance'
+import LeaveRequests from './pages/LeaveRequests'
 import Login from './pages/Login'
 import ProtectedRoute from './components/ProtectedRoute'
 
@@ -33,7 +34,7 @@ function App() {
     navigate('/login')
   }
 
-  // Login page has no sidebar or main header
+  // Login page has no sidebar/header
   if (location.pathname === '/login') {
     return (
       <Routes>
@@ -116,6 +117,13 @@ function App() {
                 Attendance
               </NavLink>
 
+              <NavLink
+                to="/leave-requests"
+                className={navStyle}
+              >
+                Leave Requests
+              </NavLink>
+
             </nav>
 
           </aside>
@@ -149,6 +157,11 @@ function App() {
               <Route
                 path="/attendance"
                 element={<Attendance />}
+              />
+
+              <Route
+                path="/leave-requests"
+                element={<LeaveRequests />}
               />
 
             </Routes>
