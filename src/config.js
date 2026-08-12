@@ -13,6 +13,9 @@ export const API_ENDPOINTS = {
   ATTENDANCE_CREATE: `${API_URL}/api/attendance`,
   ATTENDANCE_DELETE: (id) => `${API_URL}/api/attendance/${id}`,
 
+  LEADS_LIST: `${API_URL}/api/leads`,
+LEADS_CREATE: `${API_URL}/api/leads`,
+LEADS_DELETE: (id) => `${API_URL}/api/leads/${id}`,
   DASHBOARD_STATS: `${API_URL}/api/dashboard-stats`,
   LOGIN: `${API_URL}/api/auth/login`,
 }

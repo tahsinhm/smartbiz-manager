@@ -685,6 +685,142 @@ app.delete('/api/leads/:id', async (req, res) => {
   }
 })
 
+// ===========================
+// LEAVE REQUEST ROUTES
+// ===========================
+
+// GET all leave requests
+app.get('/api/leave-requests', async (req, res) => {
+  try {
+    const { data, error } = await supabase
+      .from('leave_requests')
+      .select('*')
+      .order('id', { ascending: false })
+
+    if (error) {
+      return res.status(500).json({
+        error: error.message,
+      })
+    }
+
+    res.json(data)
+
+  } catch (error) {
+    res.status(500).json({
+      error: 'Server error',
+    })
+  }
+})
+
+
+// POST new leave request
+app.post('/api/leave-requests', async (req, res) => {
+  try {
+    const {
+      employeeId,
+      startDate,
+      endDate,
+      reason
+    } = req.body
+
+    if (!employeeId || !startDate || !endDate || !reason) {
+      return res.status(400).json({
+        error: 'Employee, dates and reason are required',
+      })
+    }
+
+    const { data, error } = await supabase
+      .from('leave_requests')
+      .insert({
+        employee_id: employeeId,
+        start_date: startDate,
+        end_date: endDate,
+        reason,
+        status: 'Pending',
+      })
+      .select()
+      .single()
+
+    if (error) {
+      return res.status(500).json({
+        error: error.message,
+      })
+    }
+
+    res.status(201).json(data)
+
+  } catch (error) {
+    res.status(500).json({
+      error: 'Server error',
+    })
+  }
+})
+
+
+// UPDATE leave request status
+app.patch('/api/leave-requests/:id/status', async (req, res) => {
+  try {
+    const { id } = req.params
+    const { status } = req.body
+
+    if (!['Pending', 'Approved', 'Rejected'].includes(status)) {
+      return res.status(400).json({
+        error: 'Invalid leave status',
+      })
+    }
+
+    const { data, error } = await supabase
+      .from('leave_requests')
+      .update({
+        status,
+      })
+      .eq('id', id)
+      .select()
+      .single()
+
+    if (error) {
+      return res.status(500).json({
+        error: error.message,
+      })
+    }
+
+    res.json(data)
+
+  } catch (error) {
+    res.status(500).json({
+      error: 'Server error',
+    })
+  }
+})
+
+
+// DELETE leave request
+app.delete('/api/leave-requests/:id', async (req, res) => {
+  try {
+    const { id } = req.params
+
+    const { error } = await supabase
+      .from('leave_requests')
+      .delete()
+      .eq('id', id)
+
+    if (error) {
+      return res.status(500).json({
+        error: error.message,
+      })
+    }
+
+    res.json({
+      message: 'Leave request deleted successfully',
+    })
+
+  } catch (error) {
+    res.status(500).json({
+      error: 'Server error',
+    })
+  }
+})
+
 app.listen(PORT, () => {
   console.log(`SmartBiz Manager API running on port ${PORT}`)
   console.log('Customer and employee routes loaded')

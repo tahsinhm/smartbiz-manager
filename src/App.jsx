@@ -8,17 +8,15 @@ import {
 
 import Dashboard from './pages/Dashboard'
 import Customers from './pages/Customers'
+import Leads from './pages/Leads'
 import Employees from './pages/Employees'
 import Attendance from './pages/Attendance'
 import Login from './pages/Login'
 import ProtectedRoute from './components/ProtectedRoute'
 
-
 function App() {
-
   const location = useLocation()
   const navigate = useNavigate()
-
 
   const navStyle = ({ isActive }) =>
     `block w-full px-6 py-4 rounded-xl text-xl font-medium ${
@@ -27,50 +25,35 @@ function App() {
         : 'text-gray-800 hover:bg-gray-100'
     }`
 
-
   // Logout user
   const handleLogout = () => {
-
-    localStorage.removeItem(
-      'smartbiz_token'
-    )
-
-    localStorage.removeItem(
-      'smartbiz_user'
-    )
+    localStorage.removeItem('smartbiz_token')
+    localStorage.removeItem('smartbiz_user')
 
     navigate('/login')
   }
 
-
-  // Login page has no sidebar/header
+  // Login page has no sidebar or main header
   if (location.pathname === '/login') {
-
     return (
       <Routes>
-
         <Route
           path="/login"
           element={<Login />}
         />
-
       </Routes>
     )
   }
 
-
   return (
-
     <ProtectedRoute>
 
       <div className="min-h-screen bg-gray-100">
-
 
         {/* Header */}
         <header className="bg-blue-700 text-white px-10 py-7 flex justify-between items-center">
 
           <div>
-
             <h1 className="text-4xl font-bold">
               SmartBiz Manager
             </h1>
@@ -78,9 +61,7 @@ function App() {
             <p className="text-xl text-blue-100 mt-2">
               CRM and HR Management Platform
             </p>
-
           </div>
-
 
           <button
             onClick={handleLogout}
@@ -93,7 +74,6 @@ function App() {
 
 
         <div className="flex">
-
 
           {/* Sidebar */}
           <aside className="w-72 min-h-[calc(100vh-120px)] bg-white border-r">
@@ -108,7 +88,6 @@ function App() {
                 Dashboard
               </NavLink>
 
-
               <NavLink
                 to="/customers"
                 className={navStyle}
@@ -116,6 +95,12 @@ function App() {
                 Customers
               </NavLink>
 
+              <NavLink
+                to="/leads"
+                className={navStyle}
+              >
+                Leads
+              </NavLink>
 
               <NavLink
                 to="/employees"
@@ -123,7 +108,6 @@ function App() {
               >
                 Employees
               </NavLink>
-
 
               <NavLink
                 to="/attendance"
@@ -150,6 +134,11 @@ function App() {
               <Route
                 path="/customers"
                 element={<Customers />}
+              />
+
+              <Route
+                path="/leads"
+                element={<Leads />}
               />
 
               <Route
