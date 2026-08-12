@@ -579,6 +579,112 @@ app.post('/api/auth/login', async (req, res) => {
   }
 })
 
+// ===========================
+// LEADS ROUTES
+// ===========================
+
+// GET all leads
+app.get('/api/leads', async (req, res) => {
+  try {
+    const { data, error } = await supabase
+      .from('leads')
+      .select('*')
+      .order('id', { ascending: false })
+
+    if (error) {
+      return res.status(500).json({
+        error: error.message,
+      })
+    }
+
+    res.json(data)
+
+  } catch (error) {
+    res.status(500).json({
+      error: 'Server error',
+    })
+  }
+})
+
+
+// POST new lead
+app.post('/api/leads', async (req, res) => {
+  try {
+    const {
+      clientName,
+      company,
+      email,
+      phone,
+      enquiry,
+      status,
+      assignedEmployeeId,
+      followUpDate
+    } = req.body
+
+    if (!clientName || !email || !enquiry) {
+      return res.status(400).json({
+        error: 'Client name, email and enquiry are required',
+      })
+    }
+
+    const { data, error } = await supabase
+      .from('leads')
+      .insert({
+        client_name: clientName,
+        company,
+        email,
+        phone,
+        enquiry,
+        status: status || 'New',
+        assigned_employee_id: assignedEmployeeId || null,
+        follow_up_date: followUpDate || null,
+      })
+      .select()
+      .single()
+
+    if (error) {
+      return res.status(500).json({
+        error: error.message,
+      })
+    }
+
+    res.status(201).json(data)
+
+  } catch (error) {
+    res.status(500).json({
+      error: 'Server error',
+    })
+  }
+})
+
+
+// DELETE lead
+app.delete('/api/leads/:id', async (req, res) => {
+  try {
+    const { id } = req.params
+
+    const { error } = await supabase
+      .from('leads')
+      .delete()
+      .eq('id', id)
+
+    if (error) {
+      return res.status(500).json({
+        error: error.message,
+      })
+    }
+
+    res.json({
+      message: 'Lead deleted successfully',
+    })
+
+  } catch (error) {
+    res.status(500).json({
+      error: 'Server error',
+    })
+  }
+})
+
 app.listen(PORT, () => {
   console.log(`SmartBiz Manager API running on port ${PORT}`)
   console.log('Customer and employee routes loaded')
