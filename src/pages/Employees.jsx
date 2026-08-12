@@ -152,15 +152,15 @@ function Employees() {
     <div>
 
       {/* Page Header */}
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
 
         <div>
 
-          <h2 className="text-4xl font-bold text-gray-800">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-800">
             Employees
           </h2>
 
-          <p className="text-gray-500 mt-2 text-xl">
+          <p className="text-gray-500 mt-2 text-base sm:text-xl">
             Manage employee and HR information.
           </p>
 
@@ -171,7 +171,7 @@ function Employees() {
           onClick={() =>
             setShowForm(!showForm)
           }
-          className="bg-blue-700 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-800"
+          className="bg-blue-700 text-white px-5 py-3 rounded-lg font-medium hover:bg-blue-800 w-full sm:w-auto"
         >
 
           {showForm
@@ -373,7 +373,7 @@ function Employees() {
 
               <button
                 type="submit"
-                className="bg-blue-700 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-800"
+                className="bg-blue-700 text-white px-5 py-3 rounded-lg font-medium hover:bg-blue-800 w-full sm:w-auto"
               >
                 Save Employee
               </button>
@@ -429,7 +429,7 @@ function Employees() {
 
           <div className="overflow-x-auto">
 
-            <table className="w-full">
+            <table className="w-full min-w-[900px]">
 
               <thead className="bg-gray-50">
 
